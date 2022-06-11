@@ -8,24 +8,20 @@ describe("Login", function() {
   beforeEach(function() {
       cy.visit(this.testData.url);
       cy.wait(15000);
-      cy.loginStore(this.testData.email, this.testData.password);
+      cy.switchEnv(this.testData.email, this.testData.password);
       cy.get('[id="designstore_tab_btn"]').click();
-      cy.get('.no-internet-content > div > .btn').click();
       cy.wait(7000);
-      cy.frameLoaded('[id="design_store_iframe"]')
   });
 
-  it('Buy design - success', function() {
+  it('Buy design - success', function() {         
       cy.iframe('[id="design_store_iframe"]')
-        .find('[id="price_asc"]').click();   
+        .contains('Test plan').click();
       cy.iframe('[id="design_store_iframe"]')
-        .find('[id="easter"]').click(); 
+        .find('.single-design-buy-here').first().click(); 
       cy.iframe('[id="design_store_iframe"]')
-        .find('[id="shield"]').click();       
+        .contains('Confirm').click();
       cy.iframe('[id="design_store_iframe"]')
-        .find('.price-tag').click();
-      cy.iframe('[id="design_store_iframe"]')
-        .find('.buy-now').click();
+        .contains('Buy now').click();
       cy.iframe('[id="design_store_iframe"]')
         .find('.view-in-library').should('to.exist');
   });
@@ -34,12 +30,14 @@ describe("Login", function() {
       cy.iframe('[id="design_store_iframe"]')
         .find('[id="price_desc"]').click();
       cy.iframe('[id="design_store_iframe"]')
-        .find('[id="jewellery"]').click();
+        .find('[id="birthday"]').click();
       cy.iframe('[id="design_store_iframe"]')
-        .find('[id="plywood"]').click();
+        .find('[id="stamp"]').click();
       cy.wait(5000);
       cy.iframe('[id="design_store_iframe"]')
         .find('.store-purchase-btn').click();
+      cy.iframe('[id="design_store_iframe"]')
+        .contains('Confirm').click();
       cy.iframe('[id="design_store_iframe"]')
         .find('.buy-now').click();
       cy.get('.alert-error').should('to.exist');

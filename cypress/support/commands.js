@@ -12,21 +12,27 @@ require('cypress-iframe');
 //
 // -- This is a parent command --
 // Cypress.Commands.add('login', (email, password) => { ... })
-Cypress.Commands.add("loginStore", (email, password) => {
+Cypress.Commands.add("switchEnv", (email, password) => {
   
-    cy.get('[id="login_screen_email_address_in"]').type(email);
-    cy.get('[id="login_screen_password_in"]').type(password);
+    cy.get('[id="login_screen_email_address_in"]').clear().type(email);
+    cy.get('[id="login_screen_password_in"]').clear().type(password);
     cy.get('[id="login_screen_login_btn"]').click();
     cy.get('[id="designstore_tab_btn"]').click();
-    cy.get('[id="workingarea"]').should('to.exist');  
+    cy.get('[id="workingarea"]').should('to.exist'); 
+    cy.get('[id="burger_menu_link"]').click();
+    cy.get('[id="settings_tab_btn"]').click({force:true});
+    cy.get('[id="settings_plugin_mrbeam_dev_design_store_link"]').click();
+    cy.get('[id="settings-mrbeam-design-store-environment"]').select('dev'); 
   });
 
-Cypress.Commands.add('getIframeBody', () => {
-    cy.log('getIframeBody')
-      return cy
-    .get('iframe[id="design_store_iframe"]', { log: false })
-    .its('0.contentDocument.body', { log: false }).should('not.be.empty')
-    .then((body) => cy.wrap(body, { log: false }));
+Cypress.Commands.add('loginStore', (code) => {
+    
+    cy.iframe('[id="design_store_iframe"]')
+      .contains('Enter your existing code').click();
+    cy.iframe('[id="design_store_iframe"]')
+      .find('[placeholder="XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX"]').first().type(code);
+    cy.iframe('[id="design_store_iframe"]')
+      .contains('Verify').click();
   });
 // -- This is a child command --
 // Cypress.Commands.add('drag', { prevSubject: 'element'}, (subject, options) => { ... })
