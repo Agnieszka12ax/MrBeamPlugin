@@ -13,50 +13,47 @@ describe("Login", function() {
       cy.wait(7000);
   });
 
-  it('Buy design - success', function() { 
-      cy.wait(10000);        
-      cy.iframe('[id="design_store_iframe"]').then(($button) => {
-        cy.get($button).find('[src="static/img/beam_coin_orange.png"]').first().click({force:true});
-      });
+  it('Buy design - success', function() {         
+      cy.iframe('[id="design_store_iframe"]')
+        .contains('Test plan').click();
+      cy.iframe('[id="design_store_iframe"]')
+        .find('.single-design-buy-here').first().click(); 
       cy.iframe('[id="design_store_iframe"]')
         .contains('Confirm').click();
       cy.iframe('[id="design_store_iframe"]')
-        .find('.buy-now').first().click(); 
-      cy.wait(3000);
-      cy.iframe('[id="design_store_iframe"]').then(($button) => {
-        cy.get($button).find('.icon-download-alt').last().click({force:true});
-      });
+        .contains('Buy now').click();
       cy.iframe('[id="design_store_iframe"]')
-        .find('.view-in-library').last().should('to.exist');
-      cy.logout();
+        .find('.view-in-library').should('to.exist');
   });
 
   it('Buy design - failed', function() {
       cy.iframe('[id="design_store_iframe"]')
         .find('[id="price_desc"]').click();
-      cy.iframe('[id="design_store_iframe"]').then(($button) => {
-        cy.get($button)
-          .find('[id="25_purchase_btn"]').click({force:true});
-        }); 
+      cy.iframe('[id="design_store_iframe"]')
+        .find('[id="birthday"]').click();
+      cy.iframe('[id="design_store_iframe"]')
+        .find('[id="stamp"]').click();
+      cy.wait(5000);
+      cy.iframe('[id="design_store_iframe"]')
+        .find('.store-purchase-btn').click();
       cy.iframe('[id="design_store_iframe"]')
         .contains('Confirm').click();
       cy.iframe('[id="design_store_iframe"]')
         .find('.buy-now').click();
       cy.get('.alert-error').should('to.exist');
-      cy.logout();
   });
 
   it('Download design', function(){
       cy.iframe('[id="design_store_iframe"]')
         .find('.btn-go-to-purchases-page').click();
+      cy.iframe('[id="design_store_iframe"]')
+        .find('[id="paper"]').click();
       cy.wait(2000);
-      cy.iframe('[id="design_store_iframe"]').then(($button) => {
-        cy.get($button).find('.icon-download-alt').click({multiple:true});
-      });
+      cy.iframe('[id="design_store_iframe"]')
+        .find('.icon-download-alt').click();
       cy.wait(3000);
       cy.iframe('[id="design_store_iframe"]')
-        .find('.view-in-library').first().click();
+        .find('.view-in-library').click();
       cy.get('.file_list_entry').first().should('to.exist');
-      cy.logout();
-  });
+  })
 });

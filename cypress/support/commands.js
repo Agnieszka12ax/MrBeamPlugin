@@ -17,15 +17,13 @@ Cypress.Commands.add("switchEnv", (email, password) => {
     cy.get('[id="login_screen_email_address_in"]').clear().type(email);
     cy.get('[id="login_screen_password_in"]').clear().type(password);
     cy.get('[id="login_screen_login_btn"]').click();
-    cy.wait(3000);
-    cy.get('.modal-footer').find('.btn-danger').last().click({force:true});
     cy.get('[id="designstore_tab_btn"]').click();
     cy.get('[id="workingarea"]').should('to.exist'); 
     cy.get('[id="burger_menu_link"]').click();
     cy.get('[id="settings_tab_btn"]').click({force:true});
     cy.get('[id="settings_plugin_mrbeam_dev_design_store_link"]').click();
     cy.get('[id="settings-mrbeam-design-store-environment"]').select('dev'); 
-});
+  });
 
 Cypress.Commands.add('loginStore', (code) => {
     
@@ -36,33 +34,6 @@ Cypress.Commands.add('loginStore', (code) => {
     cy.iframe('[id="design_store_iframe"]')
       .contains('Verify').click();
   });
-
-Cypress.Commands.add("loginLibrary", (email, password) => {
-  
-    cy.get('[id="login_screen_email_address_in"]').clear().type(email);
-    cy.get('[id="login_screen_password_in"]').clear().type(password);
-    cy.get('[id="login_screen_login_btn"]').click();
-    cy.wait(3000);
-    cy.get('.modal-footer').find('.btn-danger').last().click({force:true});
-    cy.get('[id="designlib_tab_btn"]').click();
-    cy.get('[id="workingarea"]').should('to.exist'); 
-});
-
-Cypress.Commands.add("loginLaser", (email, password) => {
-  
-  cy.get('[id="login_screen_email_address_in"]').clear().type(email);
-  cy.get('[id="login_screen_password_in"]').clear().type(password);
-  cy.get('[id="login_screen_login_btn"]').click();
-  cy.wait(3000);
-  cy.get('.modal-footer').find('.btn-danger').last().click({force:true});
-  cy.get('[id="workingarea"]').should('to.exist'); 
-});
-
-Cypress.Commands.add("logout", () => {
-  
-    cy.get('[id="navbar_login"]').click();
-    cy.get('[id="logout_button"]').click({force:true});
-});
 // -- This is a child command --
 // Cypress.Commands.add('drag', { prevSubject: 'element'}, (subject, options) => { ... })
 //
@@ -73,4 +44,3 @@ Cypress.Commands.add("logout", () => {
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
-import 'cypress-file-upload';
