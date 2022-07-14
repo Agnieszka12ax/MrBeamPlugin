@@ -86,5 +86,25 @@ describe("Login", function() {
       cy.get('.icon-download-alt:visible').click();
       cy.wait('@downloadFile');
     });
+
+    it.only('Upload designs for laser job test', function(){
+      const filepathSvg1 = 'mirror.png';
+      cy.get('.fileinput-button input[type="file"]').attachFile(filepathSvg1);
+      cy.wait(5000)
+      cy.get('.files_template_model_image').first().should('to.exist','mirror.png');
+
+      const filepathSvg2 = 'paris1.dxf';
+      cy.get('.fileinput-button input[type="file"]').attachFile(filepathSvg2);
+      cy.wait(5000)
+      cy.get('.files_template_model_dxf').first().should('to.exist','paris1.dxf');
+
+      const filepathSvg3 = 'paris2.jpg';
+       cy.get('.fileinput-button input[type="file"]').attachFile(filepathSvg3);
+       cy.wait(5000)
+       cy.get('.files_template_model_image').first().should('to.exist','paris2.jpg'); 
+    });
+
+
+
   });
   

@@ -11,7 +11,7 @@ describe("Laser Job", function() {
         cy.loginLaser(this.testData.email, this.testData.password);
     });
   
-    it('Add design', function() {         
+    it.only('Add design', function() {         
        cy.get('[id="working_area_tab_file_btn"]').click();
        cy.get('.files_template_model_svg').first().click();
        cy.wait(3000);
@@ -128,8 +128,8 @@ describe("Laser Job", function() {
        cy.get('[id="quick_shape_shape_done_btn"]').click();
        cy.get('.translation').eq(1).clear().type('200.0, 38.0');
        cy.get('.rotation').eq(1).clear().type('90.5');
-       cy.get('.horizontal').eq(1).clear().type('225.3 mm');
-       cy.get('.vertical').eq(1).clear().type('230.3 mm'); 
+       cy.get('.horizontal').eq(1).clear().type('190.3 mm');
+       cy.get('.vertical').eq(1).clear().type('190.3 mm'); 
          // shapes 3
        cy.get('[id="working_area_tab_shape_btn"]').click();
        cy.get('[id="shape_tab_link_star"]').click();
