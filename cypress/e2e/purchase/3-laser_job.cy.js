@@ -11,7 +11,7 @@ describe("Laser Job", function() {
         cy.loginLaser(this.testData.email, this.testData.password);
     });
   
-    it.only('Add design', function() {         
+    it('Add design', function() {         
        cy.get('[id="working_area_tab_file_btn"]').click();
        cy.get('.files_template_model_svg').first().click();
        cy.wait(3000);
